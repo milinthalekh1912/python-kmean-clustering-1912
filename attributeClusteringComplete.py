@@ -23,7 +23,7 @@ x = df[colum]
 req = "BC"
 
 model = KMeans(n_clusters=5)
-y_Kmeans = model.fit_predict(x)
+y_Kmeans = model.fit_predict(x.values)
 
 z = x
 z["Y"] = y_Kmeans
@@ -31,14 +31,22 @@ z['Class'] = ["CS", "CE", "SE", "IT", "BC","CS", "CE", "SE", "IT", "BC","CS", "C
 
 print(z[['Y','Class']])
 
-data_Test =[1	,1	,1	,1	,1	,1	,1	,1	,1	,1	,1	,1	,1	,1	,1	,1	,1	,1]
+data_Test =[0	,0	,0	,0	,0	,0	,0	,0	,0	,0	,0	,0	,0	,0	,0	,1	,1	,1]
 
 # print(data_Test)
-result = model.predict([data_Test])
-print(result)
+# result = model.predict([data_Test])
+# print(result)
+
+predicValue = model.predict([data_Test])[0]
+print()
+v = z["Class"].loc[z['Y']== predicValue]
+print("Result : " + v.values[0])
+print()
 
 #นำ Columns เข้าวิชาที่ต้องเรียน
 rowRequest = df.loc[x["Class"] == req]
+print("Row Request")
+print(rowRequest)
 
 rowRequest = rowRequest.drop(["Y"], axis=1)
 columnRequest = rowRequest.columns.values
@@ -51,14 +59,19 @@ print(classRequest)
 
 #วิชาที่รับเข้า
 print(data_Test)
-
+print()
 #ค้นหาวิชาที่ต้องเรียนเพิ่ม
 for i in range(0,len(data_Test)):
     resultRequest.append(float(data_Test[i]) - float(classRequest[i]))
 
+reqSubject = list()
+
 for i in range(0,len(columnRequest)):
     if(resultRequest[i] < 0):
-        print(columnRequest[i] + " Not PASS")
+        # print(columnRequest[i] + " " + str(resultRequest[i]) + " Not PASS")
+        reqSubject.append(columnRequest[i])
     else:
-        print(columnRequest[i] + " PASS")
+        print(columnRequest[i] + " " + str(resultRequest[i]) + " PASS")
 
+print()
+print("Required subjects " + str(reqSubject[:]))
