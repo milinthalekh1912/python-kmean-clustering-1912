@@ -1,6 +1,6 @@
 from flask import Flask,render_template,request,url_for
 from flask_restful import Api,Resource
-from sqlalchemy import null
+
 
 app = Flask(__name__)
 api = Api(app)
