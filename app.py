@@ -13,6 +13,10 @@ templateData ={
 
 #Design
 class majorComputer(Resource):
+    def get(self):
+        result = ""
+        return "Welcome to Project"
+
     def get(self,score):
         result = ""
         
@@ -20,6 +24,7 @@ class majorComputer(Resource):
 
 
 #Call
+api.add_resource(majorComputer,"/")
 api.add_resource(majorComputer,"/Subject/<string:score>")
 
 
