@@ -17,7 +17,6 @@ def search(score):
 def search2(score,reqjob):
     b,r = km.km_Subject(score)#Return Major,S
     j = km.km_JobReq(b,reqjob)#Return Job
-   
     return render_template('index2.html',score=b,job=j,requireSubject=r)
 
 @app.route('/')

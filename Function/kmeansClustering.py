@@ -12,7 +12,7 @@ from pyexpat import model
 from sklearn.cluster import KMeans
 
 
-df = pd.read_excel('DatabaseOK.xlsx')
+df = pd.read_excel('DatabaseOK.xlsx',sheet_name='DB')
 # print(df.columns)
 
 colum = ['สถิติ', 'การแจกแจงความน่าจะเป็นเบื้องต้น', 'ลำดับและอนุกรม',
@@ -41,13 +41,13 @@ n = 5
 model = KMeans(n_clusters=n)
 y_Kmeans = model.fit_predict(x)
 x["Y"] = y_Kmeans
-x['Class'] = ["CS", "CE", "SE", "IT", "BC"]
+x['Class'] = ["CS", "CE", "SE", "IT", "BC","CS", "CE", "SE", "IT", "BC","CS", "CE", "SE", "IT", "BC"]
 
 print(x[['Y','Class']])
 
 # sns.scatterplot(y='Y_', data=x,s=100)
 
-# [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+#[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 #[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 #18 Columns
 r = 18
@@ -79,7 +79,11 @@ data_Test = [0.5, 0.333333333, 0.285714286, 1, 0.166666667, 1, 0.333333333,
 
 for i in range(0,r):
     listSubject[i] = 1
+    print("Before Predict")
+    print([listSubject])
     predict_Y = model.predict([listSubject])
+    print("After Predict")
+    print(predict_Y)
     tempList = listSubject
     tempList.append(predict_Y[0])
     report_df.loc[numloc] = tempList
@@ -184,3 +188,5 @@ table_ = pd.concat([x,report_df])
 # sns.scatterplot(x=table_['x'],y=table_['y'],data=table,label="Test")
 # plt.show()
 
+
+print("Hello World")
