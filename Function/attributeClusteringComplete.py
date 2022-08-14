@@ -51,7 +51,7 @@ def writeFullName(majorName):
     else:
         return "Business Computer"
 
-def km_Subject(dataTestUser):
+def km_Subject(dataTestUser,req):
     df = pd.read_excel('DatabaseOK.xlsx',sheet_name="DB")
 
     # แปลง String to List 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -59,7 +59,7 @@ def km_Subject(dataTestUser):
     
     x = df[colum]
     
-    req = "BC"
+    req = "CS"
 
     model = KMeans(n_clusters=5)
     y_Kmeans = model.fit_predict(x.values)
@@ -203,7 +203,7 @@ def intersection(lst1, lst2):
 def km_JobReq(major,dataReq):
     resultSubject = major
     resultRequire = []
-    jobRequire = splitJob(dataReq)
+    # jobRequire = splitJob(dataReq)
     
     checkNumGroup = []
 
@@ -211,6 +211,7 @@ def km_JobReq(major,dataReq):
         for j in dataGroup[i]:
             if resultSubject == j:
                 checkNumGroup.append(i)
+
     print(checkNumGroup)
     job = []  
     for i in range(0,len(checkNumGroup)-1):
@@ -219,20 +220,18 @@ def km_JobReq(major,dataReq):
             
     print(job)
 
-    resultRequire = intersection(job,jobRequire)
+    resultRequire = intersection(job,dataReq)
     if resultRequire == []:
         resultRequire = "Empty"
 
     return resultRequire
 
 
-def km_Subject_Double(dataTestUser):
+def km_Subject_Double(dataTestUser,req):
     df = pd.read_excel('DatabaseOK.xlsx',sheet_name="DB")
 
     x = df[colum]
     
-    req = "BC"
-
     model = KMeans(n_clusters=5)
     y_Kmeans = model.fit_predict(x.values)
     y_Distant = model.transform(x.values)**2
@@ -253,10 +252,9 @@ def km_Subject_Double(dataTestUser):
     
     #print(dfDist)
     
-
     z = x
     z["Y"] = y_Kmeans
-    z['Class'] = columnY
+    z['Class'] = df['Y']
 
     # print(z[['Y','Class']])
 
@@ -266,8 +264,8 @@ def km_Subject_Double(dataTestUser):
     
     resultUser = model.predict([dataTestUser])[0]
     
-    resultName = writeFullName(z["Class"].loc[z['Y']== resultUser].values[0])
-    
+    # resultName = writeFullName(z["Class"].loc[z['Y']== resultUser].values[0])
+    resultName = writeFullName(req)
     # print("Result : " + v.values[0])
     # print()
 
@@ -297,12 +295,13 @@ def km_Subject_Double(dataTestUser):
         #     print(columnRequest[i] + " " + str(resultRequest[i]) + " PASS")
 
     # print()
-    # print("Required subjects " + str(reqSubject[:]))
+    print("Required subjects " + str(reqSubject[:]))
     return resultName,reqSubject
 
 
 
-# print(km_Subject_Double([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1]))
+print(km_Subject_Double([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],'CE'))
+print(km_JobReq('Computer Engineering',[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]))
 
 columns = ['สถิติ', 'การแจกแจงความน่าจะเป็นเบื้องต้น', 'ลำดับและอนุกรม',
          'แคลคูลัส', 'เรขาคณิตวิเคราะห์', 'เซต', 'ตรรกศาสตร์',
@@ -310,12 +309,12 @@ columns = ['สถิติ', 'การแจกแจงความน่า�
          'เมทริกซ์', 'เวกเตอร์ในสามมิติ', 'หลักการนับเบื้องต้น', 'ความน่าจะเป็น',
          'ฟิสิกส์', 'เคมี', 'ชีวะ','Y']
 
-report_df = pd.DataFrame(columns=columns)
+# report_df = pd.DataFrame(columns=columns)
 
-listSubject = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-listRandom = []
-r = 18
-numloc = 1
+# listSubject = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+# listRandom = []
+# r = 18
+# numloc = 1
 
 # for i in range(0,r):
 #     listSubject[i] = 0
@@ -330,18 +329,6 @@ numloc = 1
 #         del tempList[-1]
 #     listSubject[i] = 0
 
-import random
 
-for i in range(5000):
-    for j in range(18):
-        listRandom.append(random.uniform(0, 0.5))
-    
-    predict_Y,reqSubject = km_Subject_Double(listRandom)
-    listRandom.append(predict_Y)
-    report_df.loc[numloc] = listRandom
-    listRandom.clear()
-    numloc = numloc + 1
-
-
-report_df.to_excel('pyexport_dataframe.xlsx', index = False, header=True) 
+#report_df.to_excel('pyexport_dataframe.xlsx', index = False, header=True) 
 
