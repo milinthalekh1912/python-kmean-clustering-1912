@@ -95,13 +95,14 @@ print(dd)
 data = pd.DataFrame(columns=['x','y','z'],data=[[1.756836 ,0.627930 ,0.871094]])
 print(model.predict(data)[0])
 printDataModel(table)
-plotGraph3D(table)
+# plotGraph3D(table)
 
 print()
 
 result = dropTable(model.predict(data)[0],table)
+
 printDataModel(result)
-plotGraph3D(result)
+# plotGraph3D(result)
 print()
 print(model.predict(data)[0])
 

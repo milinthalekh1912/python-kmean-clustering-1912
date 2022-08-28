@@ -20,10 +20,23 @@ def labelEncode(data, columns):
         lb = LabelEncoder().fit_transform(data[i])
         data[i + "_"] = lb
 
+def percentForMajor(table,major,user):
+    listMajor = table[(table['Y'] == major)].drop(columns='Y').values[0]
+    print("In Function percentForMajor")
+    result = []
+    for i in range(0,6):
+        print(str(user[i]) + " - " + str(listMajor[i]))
+        result.append(user[i] - listMajor[i])
+    print(result)
+    return result.count(0)/6
+
+
+
 
 df = pd.read_excel('Aptitute.xlsx', sheet_name="CaseDss")
 
 colum = ["Coding", "Artificial Intelligence","Web","Programming","Business","Engineer"]
+
 
 x = df[colum]
 
@@ -35,17 +48,20 @@ model = KMeans(n_clusters=n)
 y_Kmeans = model.fit_predict(x)
 x["Y"] = y_Kmeans
 # x['Class'] = ["CS", "CE", "SE", "IT", "BC"]
-x['Class'] = ["CS", "CE", "SE", "IT", "BC","CS","CE", "SE", "IT"]
+x['Class'] = df['Y']
 # x['Class'] = ["CS", "CE", "SE", "IT", "BC", "CS",
 #               "CE", "SE", "IT", "CS", "CE", "SE", "IT", "CS", "CE", "SE", "IT", "CS", "CE", "SE", "IT"
 #               ]
+csMajor = df[(df['Y'] == 'CS')]
+csMajor = csMajor.drop(columns='Y')
+print(csMajor.values[0])
+# print("Result CS : " + str(percentForMajor(csMajor.values[0],[1,0,0,0,0,0])))
+print("Result CS : " + str(percentForMajor(df,'CS',[1,0,0,0,0,0])))
 
 print(x[['Y', 'Class']])
 #["Coding", "Artificial Intelligence", "Web", "Programming", "Business", "Engineer"]
 data_Test = [0.5,0.5,0,0.5,0,0]
-
-print(data_Test)
-
+# Print Cluster
 print(model.predict([data_Test]))
 
 columns = ["Coding", "Artificial Intelligence",

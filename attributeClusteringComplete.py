@@ -172,7 +172,6 @@ def splitJob(dataReq:string):
 
     txt = word.strip(',')
     result.append(txt)
-
     return result
 
 def km_Subject_Req(dataSubject,dataReq):
@@ -186,6 +185,7 @@ def km_Subject_Req(dataSubject,dataReq):
         for j in dataGroup[i]:
             if resultSubject == j:
                 checkNumGroup.append(i)
+        print(checkNumGroup)
 
     job = []  
     for i in range(0,len(checkNumGroup)):
@@ -196,15 +196,14 @@ def km_Subject_Req(dataSubject,dataReq):
 
     return resultSubject,reqSubject,resultRequire
 
+
 def intersection(lst1, lst2):
     temp = set(lst2)
     lst3 = [value for value in lst1 if value in temp]
     return lst3
 
-def km_JobReq(major,dataReq):
+def km_JobReq(major):
     resultSubject = major
-    resultRequire = []
-    jobRequire = splitJob(dataReq)
     
     checkNumGroup = []
 
@@ -212,23 +211,18 @@ def km_JobReq(major,dataReq):
         for j in dataGroup[i]:
             if resultSubject == j:
                 checkNumGroup.append(i)
-    # print(checkNumGroup)
+    
     job = []  
     for i in range(0,len(checkNumGroup)-1):
         for j in dataGroupJob[i]:
             job.append(j)
-            
-    # print(job)
+   
+    return job
 
-    resultRequire = intersection(job,jobRequire)
-    if resultRequire == []:
-        resultRequire = "Empty"
+print(km_JobReq('Computer Engineering',"1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0"))
 
-    return resultRequire
-
-
-print('BC',km_Subject("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1","BC"))
-print('IT',km_Subject("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1","IT"))
-print('CS',km_Subject("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1","CS"))
-print('CE',km_Subject("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1","CE"))
-print('SE',km_Subject("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1","SE"))
+# print('BC',km_Subject("1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0","BC"))
+# print('IT',km_Subject("1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1","IT"))
+# print('CS',km_Subject("1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1","CS"))
+# print('CE',km_Subject("1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1","CE"))
+# print('SE',km_Subject("1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1","SE"))
