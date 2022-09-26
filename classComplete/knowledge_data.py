@@ -23,6 +23,6 @@ class Skill:
         listItem = connection.Connection(host,username,password).connectToSql('skill_major')
         self.df = pd.DataFrame(data=listItem,columns=self.column)
 
-df = KnowLedge('dataservey')
-print(df.df)
+# df = Skill()
+# print(df.df)
 

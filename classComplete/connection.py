@@ -1,6 +1,6 @@
 import mysql.connector
 
-host = '127.0.0.1'
+host = 'localhost'
 username = 'root'
 password = ''
 
@@ -15,7 +15,8 @@ class Connection:
         host = self.host,
         user = self.username,
         password = self.password,
-        database = 'cos4501'
+        database = 'cos_porject',
+        port = '3309'
         )
         myCursor = mydb.cursor()
         myCursor.execute("SELECT * FROM " + table)
@@ -26,4 +27,3 @@ class Connection:
 # TODO
 conn = Connection(host,username,password).connectToSql('dataservey')
 print(type(conn))
-

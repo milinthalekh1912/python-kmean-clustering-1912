@@ -54,7 +54,7 @@ class SkillMajor:
         data = dataModel.values.tolist()[0]
         
         for i in range(0,len(data)):
-            sum.append(userData[i] - data[i] if data[i] - userData[i] > 0 else 0)
+            sum.append(float(userData[i]) - float(data[i]) if float(data[i]) - float(userData[i]) > 0 else 0)
         
         return round((sum.count(0))/len(data),2)
             
@@ -62,7 +62,7 @@ class SkillMajor:
     
 
 
-v = SkillMajor([1,0,0,1,1,1])
+v = SkillMajor([1,1,1,0,0.0,0])
 print(v.skill_Request[0])
 print(v.skill_Percentage[0])
 print(v.skill_Request[1])
